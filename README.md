@@ -2,7 +2,20 @@
 
 ## 🚀 Overview
 
-The **Unified QueryRAG Engine** represents a groundbreaking innovation in intelligent data querying, seamlessly combining the precision of structured data querying (Text2Query) with the flexibility of retrieval-augmented generation (RAG). This system intelligently orchestrates between different querying methodologies to provide the most accurate and comprehensive answers to natural language questions about structured datasets.
+The **Unified QueryRAG Engine** represents a groundbreaking innovation in intelligent data querying, seamlessly combining the precision of structured data querying (Text2Query) with the flexibility of retrieval-augmented generation (RAG). Built on the powerful **LangChain framework**, this system intelligently orchestrates between different querying methodologies to provide the most accurate and comprehensive answers to natural language questions about structured datasets.
+
+### 🔗 Powered by LangChain
+
+This engine leverages **LangChain's comprehensive ecosystem** to deliver state-of-the-art natural language processing capabilities:
+
+- **LangChain Agents**: For complex, multi-step query processing and iterative problem-solving
+- **LangChain Chains**: For structured query generation and data manipulation workflows  
+- **LangChain Vector Stores**: For semantic document retrieval and similarity search
+- **LangChain LLM Integration**: For seamless integration with multiple language models (OpenAI, Google Gemini, etc.)
+- **LangChain Document Processing**: For intelligent text chunking and context management
+- **LangChain Memory Systems**: For maintaining conversation context and query history
+
+The LangChain framework provides the foundation for the engine's sophisticated natural language understanding, enabling it to handle complex queries that would be impossible with traditional rule-based systems.
 
 ### 🎯 Key Innovation: Intelligent Fallback Architecture
 
@@ -20,12 +33,12 @@ The system is built on a **profile-agnostic architecture** that allows seamless 
 
 ### Core Components
 
-- **Unified Engine**: Orchestrates between Text2Query and RAG systems
-- **Text2Query Engine**: Converts natural language to pandas queries
-- **RAG Agent**: Handles unstructured and semi-structured data queries
-- **Profile System**: Manages data schemas and configurations
-- **API Layer**: Provides REST endpoints for external integration
-- **MCP Server**: Enables integration with AI tools and external systems
+- **Unified Engine**: Orchestrates between Text2Query and RAG systems using LangChain's orchestration capabilities
+- **Text2Query Engine**: Converts natural language to pandas queries using LangChain Agents and Chains
+- **RAG Agent**: Handles unstructured and semi-structured data queries powered by LangChain Vector Stores and LLM integration
+- **Profile System**: Manages data schemas and configurations with LangChain's document processing capabilities
+- **API Layer**: Provides REST endpoints for external integration with LangChain-powered backend processing
+- **MCP Server**: Enables integration with AI tools and external systems through LangChain's modular architecture
 
 ## 🔄 System Logic Flow
 
@@ -259,35 +272,42 @@ sequenceDiagram
 
 ## 🎨 Key Features
 
-### 1. **Intelligent Method Selection**
-The system uses sophisticated heuristics to determine the optimal querying approach:
-- **Question complexity analysis**
-- **Data structure assessment**
-- **Historical performance metrics**
-- **Automatic fallback mechanisms**
+### 1. **LangChain-Powered Intelligence**
+The system leverages LangChain's advanced capabilities for intelligent processing:
+- **LangChain Agents** for autonomous decision-making and multi-step reasoning
+- **LangChain Chains** for structured query generation and data manipulation
+- **LangChain Memory** for context retention and conversation continuity
+- **LangChain Tools** for seamless integration with external data sources and APIs
 
-### 2. **Profile-Agnostic Design**
+### 2. **Intelligent Method Selection**
+The system uses sophisticated heuristics to determine the optimal querying approach:
+- **Question complexity analysis** using LangChain's natural language understanding
+- **Data structure assessment** with LangChain's document processing capabilities
+- **Historical performance metrics** tracked through LangChain's memory systems
+- **Automatic fallback mechanisms** orchestrated by LangChain's agent framework
+
+### 3. **Profile-Agnostic Design**
 Each data profile is completely independent:
 - **Custom data schemas**
 - **Profile-specific cleaning logic**
 - **Configurable LLM providers**
 - **Flexible document templates**
 
-### 3. **Multi-Modal Query Processing**
+### 4. **Multi-Modal Query Processing**
 Supports various query types:
 - **Aggregation queries** (sum, average, count)
 - **Filtering operations** (where clauses, conditions)
 - **Complex joins** and relationships
 - **Natural language explanations**
 
-### 4. **Robust Error Handling**
+### 5. **Robust Error Handling**
 Comprehensive error management:
 - **Graceful degradation**
 - **Detailed error reporting**
 - **Automatic retry mechanisms**
 - **Fallback strategies**
 
-### 5. **Performance Optimization**
+### 6. **Performance Optimization**
 Built for efficiency:
 - **Caching mechanisms**
 - **Parallel processing**
