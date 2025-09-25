@@ -31,6 +31,20 @@ The system is built on a **profile-agnostic architecture** that allows seamless 
 
 ### Primary Query Flow
 
+The following sequence diagram illustrates the core decision-making process of the Unified QueryRAG Engine, showing how it intelligently routes queries between structured and unstructured processing methods to maximize success rates and response quality.
+
+**Key Decision Points:**
+- **Method Selection**: The system first attempts Text2Query for structured data analysis
+- **Automatic Fallback**: If Text2Query fails, it seamlessly switches to RAG without user intervention
+- **Unified Response**: Both methods return responses in the same standardized format
+
+**Process Flow Explanation:**
+1. **User Input**: Natural language questions are received through the API layer
+2. **Intelligent Routing**: The Unified Engine analyzes the question and selects the optimal processing method
+3. **Structured Processing**: Text2Query converts natural language to precise pandas queries for direct data manipulation
+4. **Fallback Processing**: RAG uses document retrieval and language model generation for complex or ambiguous queries
+5. **Response Standardization**: All responses are formatted consistently regardless of the processing method used
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -66,6 +80,28 @@ sequenceDiagram
 
 ### Profile-Agnostic Data Processing
 
+This sequence diagram demonstrates the sophisticated profile management system that enables the Unified QueryRAG Engine to work with different datasets without requiring code modifications. The profile system is the foundation of the engine's adaptability and scalability.
+
+**Profile System Architecture:**
+- **Dynamic Profile Loading**: Profiles are loaded at runtime based on configuration
+- **Schema-Driven Processing**: Each profile defines its own data structure and validation rules
+- **Automatic Data Cleaning**: Profile-specific cleaning rules are applied automatically
+- **Configuration Isolation**: Each profile maintains its own settings and parameters
+
+**Detailed Process Flow:**
+1. **Profile Initialization**: The system requests the active profile from the ProfileFactory
+2. **Configuration Loading**: The profile instance loads its specific schema, cleaning rules, and settings
+3. **Data Schema Application**: Column definitions, data types, and validation rules are applied
+4. **Data Loading & Processing**: Raw CSV data is loaded and processed according to profile specifications
+5. **Data Validation**: Profile-specific cleaning and validation rules ensure data quality
+6. **Storage Preparation**: Processed data is prepared for efficient querying and retrieval
+
+**Key Benefits:**
+- **Zero-Code Switching**: Change datasets by simply updating the profile configuration
+- **Consistent Interface**: All profiles provide the same interface to the query engines
+- **Data Quality Assurance**: Automatic validation and cleaning based on profile rules
+- **Scalable Architecture**: Easy addition of new data types and structures
+
 ```mermaid
 sequenceDiagram
     participant System
@@ -98,6 +134,37 @@ sequenceDiagram
 ```
 
 ### Text2Query Engine Flow
+
+This sequence diagram illustrates the sophisticated multi-method approach used by the Text2Query engine to handle queries of varying complexity. The engine employs intelligent method selection to choose the most appropriate processing approach based on query characteristics and complexity analysis.
+
+**Method Selection Strategy:**
+- **Heuristic Analysis**: The system analyzes question complexity, data structure requirements, and query patterns
+- **Performance Optimization**: Each method is optimized for specific types of queries and data operations
+- **Automatic Scaling**: The system automatically scales up to more sophisticated methods when needed
+- **Fallback Mechanisms**: If one method fails, the system can attempt alternative approaches
+
+**Three-Tier Processing Architecture:**
+
+1. **Traditional Engine (Simple Aggregations)**
+   - **Use Case**: Basic statistical operations (sum, average, count, min, max)
+   - **Performance**: Fastest execution for straightforward queries
+   - **Examples**: "What is the average price?", "How many records are there?"
+
+2. **LangChain Direct (Complex Queries)**
+   - **Use Case**: Multi-step queries requiring data manipulation and filtering
+   - **Performance**: Balanced speed and capability for moderate complexity
+   - **Examples**: "Show me products with price > $100 and rating > 4.5"
+
+3. **LangChain Agent (Very Complex Queries)**
+   - **Use Case**: Multi-table operations, complex joins, and iterative query building
+   - **Performance**: Most capable but slower for highly complex operations
+   - **Examples**: "Compare sales performance across different regions and time periods"
+
+**Intelligent Decision Making:**
+- **Query Complexity Scoring**: Analyzes linguistic patterns, data requirements, and computational needs
+- **Historical Performance**: Considers past success rates and execution times for similar queries
+- **Resource Optimization**: Balances accuracy, speed, and computational resources
+- **Adaptive Learning**: Improves method selection based on user feedback and performance metrics
 
 ```mermaid
 sequenceDiagram
@@ -136,6 +203,35 @@ sequenceDiagram
 ```
 
 ### RAG Agent Flow
+
+This sequence diagram demonstrates the sophisticated retrieval-augmented generation (RAG) process that serves as the fallback mechanism when structured queries fail or are insufficient. The RAG agent combines document retrieval with large language model generation to provide comprehensive, context-aware answers.
+
+**RAG Architecture Components:**
+- **Vector Store**: Maintains semantic embeddings of all data documents for similarity search
+- **Document Retrieval**: Finds the most relevant document chunks based on query semantics
+- **Context-Aware Generation**: Uses retrieved documents as context for accurate answer generation
+- **Response Validation**: Ensures generated answers are properly formatted and validated
+
+**Detailed Process Flow:**
+
+1. **Query Reception**: The RAG agent receives questions that couldn't be handled by Text2Query
+2. **Semantic Search**: The vector store performs similarity search to find relevant document chunks
+3. **Context Assembly**: Retrieved documents are assembled into a coherent context for the LLM
+4. **Answer Generation**: The language model generates answers using both the query and retrieved context
+5. **Response Processing**: Generated answers are validated, formatted, and prepared for delivery
+
+**Key Advantages of RAG Approach:**
+- **Contextual Understanding**: Provides answers based on actual data content, not just structure
+- **Flexible Query Handling**: Can handle ambiguous, complex, or poorly structured questions
+- **Comprehensive Coverage**: Accesses all available information, including unstructured text
+- **Natural Language Output**: Generates human-readable explanations and insights
+- **Fallback Reliability**: Ensures high success rates even when structured queries fail
+
+**Performance Characteristics:**
+- **Retrieval Speed**: Vector similarity search is optimized for fast document retrieval
+- **Generation Quality**: Context-aware generation produces more accurate and relevant answers
+- **Scalability**: Vector stores can handle large document collections efficiently
+- **Adaptability**: Can work with any type of textual data without schema requirements
 
 ```mermaid
 sequenceDiagram
