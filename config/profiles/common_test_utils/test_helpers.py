@@ -8,7 +8,7 @@ across test files.
 import tempfile
 from pathlib import Path
 from typing import List, Optional, Dict, Any
-from rag.generic_data_processor import DataSchema
+from core.rag.generic_data_processor import DataSchema
 
 
 def create_test_csv(
