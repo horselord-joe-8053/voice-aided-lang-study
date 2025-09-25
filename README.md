@@ -2,7 +2,7 @@
 
 ## 🚀 Overview
 
-The **Unified QueryRAG Engine** represents a groundbreaking innovation in intelligent data querying, seamlessly combining the precision of structured data querying (Text2Query) with the flexibility of retrieval-augmented generation (RAG). Built on the powerful **LangChain framework**, this system intelligently orchestrates between different querying methodologies to provide the most accurate and comprehensive answers to natural language questions about structured datasets.
+The **Unified Query RAG Engine with MCP** represents a creative way in intelligent data querying, seamlessly combining the precision of structured data querying (Text2Query) with the flexibility of retrieval-augmented generation (RAG). Built on the powerful **LangChain framework**. It orchestrates between different querying methodologies to provide the most accurate and comprehensive answers to natural language questions about structured datasets.
 
 ### 🔗 Powered by LangChain
 
