@@ -6,13 +6,7 @@ The **Unified Query RAG Engine with MCP** represents a creative way in intellige
 
 ### 🎥 **Platform Overview Video**
 
-<a href="https://drive.google.com/file/d/1jCs2oL3irVy7Tn3n6FSWfyXp-uakZV3P/view?usp=drive_link" target="_blank" style="text-decoration: none;">
-  <div style="width: 240px; height: 135px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 3px 12px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'">
-    <div style="font-size: 24px; margin-bottom: 6px;">▶️</div>
-    <div style="color: white; font-size: 12px; font-weight: 600; margin-bottom: 2px;">Platform Overview</div>
-    <div style="color: rgba(255,255,255,0.8); font-size: 10px;">Click to watch</div>
-  </div>
-</a>
+[![Platform Overview](https://drive.google.com/thumbnail?id=1jCs2oL3irVy7Tn3n6FSWfyXp-uakZV3P&sz=w240)](https://drive.google.com/file/d/1jCs2oL3irVy7Tn3n6FSWfyXp-uakZV3P/view?usp=drive_link)
 
 ### 🔗 Powered by LangChain
 
