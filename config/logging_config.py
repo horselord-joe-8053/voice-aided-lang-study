@@ -112,6 +112,18 @@ def get_logger(name: str) -> logging.Logger:
     """
     return logging.getLogger(name)
 
+def get_rag_logger() -> logging.Logger:
+    """Get the RAG engine-specific logger."""
+    return logging.getLogger('rag')
+
+def get_api_logger() -> logging.Logger:
+    """Get the API-specific logger."""
+    return logging.getLogger('api')
+
+def get_server_logger() -> logging.Logger:
+    """Get the server-specific logger."""
+    return logging.getLogger('server')
+
 def log_system_info():
     """Log system information at startup."""
     logger = get_logger(__name__)

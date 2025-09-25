@@ -11,7 +11,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 
-from rag.generic_data_processor import DataSchema
+from core.rag.generic_data_processor import DataSchema
 
 BASE_DIR = Path(__file__).parent.parent.resolve()
 STORAGE_REPORTS_DIR = BASE_DIR / "storage" / "reports"

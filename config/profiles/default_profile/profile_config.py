@@ -8,7 +8,7 @@ from typing import Dict, Any, List
 import pandas as pd
 
 from ..base_profile import BaseProfile, ColumnDefinition, SensitizationRule, DocumentTemplate
-from rag.generic_data_processor import DataSchema
+from core.rag.generic_data_processor import DataSchema
 from reports.generic_report_builder import ReportConfig
 
 

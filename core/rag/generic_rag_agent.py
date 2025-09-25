@@ -13,8 +13,8 @@ from langchain.schema import Document
 from config.langchain_settings import LangChainConfig
 from config.providers.registry import ProviderConfig, LLMFactory, EmbeddingsFactory
 from config.logging_config import get_logger
-from rag.generic_data_processor import GenericDataProcessor, DataSchema
-from rag.generic_vector_store import GenericVectorStore
+from .generic_data_processor import GenericDataProcessor, DataSchema
+from .generic_vector_store import GenericVectorStore
 
 logger = get_logger(__name__)
 

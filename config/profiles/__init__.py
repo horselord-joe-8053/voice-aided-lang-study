@@ -9,4 +9,7 @@ the active profile.
 from .base_profile import BaseProfile
 from .profile_factory import ProfileFactory
 
-__all__ = ['BaseProfile', 'ProfileFactory']
+# Alias for backward compatibility with text2query components
+DataProfile = BaseProfile
+
+__all__ = ['BaseProfile', 'DataProfile', 'ProfileFactory']

@@ -22,6 +22,18 @@ PROFILE = "default_profile"  # Options: "default_profile"
 
 BASE_DIR = Path(__file__).parent.parent.resolve()
 
+# API Configuration (for backward compatibility)
+GENERATION_MODEL = "gemini-1.5-flash"
+API_PORT = 7788
+
+@dataclass
+class Config:
+    """Text2Query configuration class for backward compatibility."""
+    google_api_key: str
+    generation_model: str
+    port: int
+    profile_name: str
+
 @dataclass
 class SystemConfig:
     """System configuration with all settings consolidated."""
@@ -67,6 +79,26 @@ class SystemConfig:
     max_file_size: int = 10 * 1024 * 1024  # 10MB
     backup_count: int = 5
 
+
+def load_config() -> Config:
+    """Load Text2Query configuration for backward compatibility."""
+    return Config(
+        google_api_key="PLACEHOLDER",  # Will be loaded dynamically via provider config
+        generation_model=GENERATION_MODEL,
+        port=API_PORT,
+        profile_name=PROFILE,
+    )
+
+def load_profile(config: Config) -> 'DataProfile':
+    """Load the appropriate data profile based on configuration."""
+    try:
+        return ProfileFactory.create_profile(config.profile_name)
+    except (ValueError, ImportError) as e:
+        from config.logging_config import get_logger
+        logger = get_logger(__name__)
+        logger.warning(f"Failed to load profile '{config.profile_name}': {e}")
+        logger.info("Falling back to default profile")
+        return ProfileFactory.get_default_profile()
 
 def load_system_config() -> SystemConfig:
     """Load system configuration."""
