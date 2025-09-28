@@ -18,7 +18,10 @@ A comprehensive system for generating Portuguese text with numbers and convertin
 
 ## 🎯 Overview
 
-This system helps you learn Portuguese numbers by generating realistic text content with various numbers (years, populations, GDP, percentages) and converting them to speech using state-of-the-art TTS providers. It includes comprehensive cost monitoring to track your API usage and expenses.
+This system helps you learn Portuguese with voice aid, for example 
+- Portuguese numbers by generating realistic text content with various numbers (years, populations, GDP, percentages) and converting them to speech using state-of-the-art TTS providers. 
+- Portuguese conjugation examples through listening to examples.
+It includes comprehensive cost monitoring to track your API usage and expenses.
 
 ### Key Benefits:
 - **🎓 Educational**: Practice Portuguese number pronunciation
