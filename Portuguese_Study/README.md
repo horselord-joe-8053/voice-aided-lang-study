@@ -349,12 +349,41 @@ graph TD
 
 ## ⚙️ Configuration
 
-### Environment Variables
-```bash
-# Required API keys
-OPENAI_API_KEY="sk-proj-..."
-GEMINI_API_KEY="AIzaSy..."
+### API Key Setup
 
+**Step 1: Copy the template file**
+```bash
+cp config/api_key_constants_template.py config/api_key_constants.py
+```
+
+**Step 2: Edit your API keys**
+Open `config/api_key_constants.py` and replace the `None` values with your actual API keys:
+
+```python
+# ===========================================
+# API KEY CONFIGURATION
+# ===========================================
+# Replace None with your actual API keys
+
+OPENAI_API_KEY = "sk-proj-your-actual-openai-key-here"  # Your OpenAI API key
+GEMINI_API_KEY = "AIzaSy-your-actual-gemini-key-here"  # Your Gemini API key
+```
+
+**Step 3: Verify configuration**
+Run the system to check if your API keys are configured:
+```bash
+python main.py
+```
+
+### Alternative: Environment Variables
+You can also set API keys as environment variables instead:
+```bash
+export OPENAI_API_KEY="sk-proj-your-openai-key"
+export GEMINI_API_KEY="AIzaSy-your-gemini-key"
+```
+
+### Other Configuration
+```bash
 # Optional: Custom output directory
 OUTPUT_FOLDER="audio_outputs"
 ```

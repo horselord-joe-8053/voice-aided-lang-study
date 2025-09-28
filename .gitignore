@@ -370,3 +370,4 @@ docker-compose.override.yml
 local_settings.py
 local_config.py
 dev_settings.py
+Portuguese_Study/config/api_key_constants.py
