@@ -4,6 +4,7 @@ try:
     from src.text_generation.input_text_gen import generate_and_display_paragraph
     from src.utils.audio_utils import save_audio_file, generate_audio_filename
     from cost_monitor.cost_tracker import CostTracker
+    from config.api_key_config import get_api_key, is_configured
 except ImportError:
     # For running this file directly
     import sys
@@ -12,12 +13,13 @@ except ImportError:
     from src.text_generation.input_text_gen import generate_and_display_paragraph
     from src.utils.audio_utils import save_audio_file, generate_audio_filename
     from cost_monitor.cost_tracker import CostTracker
+    from config.api_key_config import get_api_key, is_configured
 
 # -------------------------------
 # CONFIGURATION
 # -------------------------------
-# OpenAI API key
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Get OpenAI API key from configuration
+OPENAI_API_KEY = get_api_key('openai')
 
 # Initialize cost tracker
 cost_tracker = CostTracker()
@@ -37,6 +39,11 @@ def tts_openai(text, filename=None):
     Returns:
         str: Path to saved audio file, or None if failed
     """
+    # Check if API key is configured
+    if not is_configured('openai'):
+        print("Error: OpenAI API key is not configured. Please set OPENAI_API_KEY environment variable or configure in config/api_key_config.py")
+        return None
+    
     # Start cost tracking
     request_id = cost_tracker.start_request("openai", "gpt-4o-mini-tts", text)
     

@@ -6,6 +6,7 @@ try:
     from src.text_generation.input_text_gen import generate_and_display_paragraph
     from src.utils.audio_utils import save_audio_file, generate_audio_filename
     from cost_monitor.cost_tracker import CostTracker
+    from config.api_key_config import get_api_key, is_configured
 except ImportError:
     # For running this file directly
     import sys
@@ -14,6 +15,7 @@ except ImportError:
     from src.text_generation.input_text_gen import generate_and_display_paragraph
     from src.utils.audio_utils import save_audio_file, generate_audio_filename
     from cost_monitor.cost_tracker import CostTracker
+    from config.api_key_config import get_api_key, is_configured
 
 # -------------------------------
 # WAV HEADER UTILITY
@@ -61,7 +63,8 @@ def add_wav_headers(raw_audio_data, sample_rate=24000, channels=1, bits_per_samp
 # CONFIGURATION
 # -------------------------------
 # Gemini API key
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyBGnyw_Bo7CY8gRdW4RqlwKa287CaGAUXk")
+# Get Gemini API key from configuration
+GEMINI_API_KEY = get_api_key('gemini')
 
 # Initialize cost tracker
 cost_tracker = CostTracker()
@@ -81,6 +84,11 @@ def tts_gemini(text, filename=None):
     Returns:
         str: Path to saved audio file, or None if failed
     """
+    # Check if API key is configured
+    if not is_configured('gemini'):
+        print("Error: Gemini API key is not configured. Please set GEMINI_API_KEY environment variable or configure in config/api_key_config.py")
+        return None
+    
     # Start cost tracking
     request_id = cost_tracker.start_request("gemini", "gemini-2.5-flash-preview-tts", text)
     
