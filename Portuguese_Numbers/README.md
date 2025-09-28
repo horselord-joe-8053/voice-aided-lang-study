@@ -50,79 +50,85 @@ This system helps you learn Portuguese numbers by generating realistic text cont
 
 ### System Overview
 
+```mermaid
+graph TB
+    A[User] --> B[main.py]
+    B --> C[Text Generation]
+    B --> D[TTS Orchestration]
+    
+    C --> E[input_text_gen.py]
+    E --> F[Number to Portuguese]
+    E --> G[Paragraph Generation]
+    
+    D --> H[OpenAI TTS]
+    D --> I[Gemini TTS]
+    
+    H --> J[Cost Tracking]
+    I --> J
+    
+    J --> K[Daily JSON Files]
+    J --> L[Cost Reports]
+    
+    H --> M[Audio Files]
+    I --> M
 ```
-┌─────────┐
-│  User   │
-└────┬────┘
-     │
-     ▼
-┌─────────┐
-│main.py  │
-└────┬────┘
-     │
-     ├─────────────────┐
-     ▼                 ▼
-┌─────────────┐  ┌─────────────┐
-│Text         │  │TTS          │
-│Generation   │  │Orchestration│
-└─────┬───────┘  └─────┬───────┘
-      │                 │
-      ▼                 ├─────────────┬─────────────┐
-┌─────────────┐         ▼             ▼             ▼
-│input_text_  │    ┌─────────┐ ┌─────────┐ ┌─────────┐
-│gen.py       │    │OpenAI   │ │Gemini   │ │Cost     │
-│             │    │TTS      │ │TTS      │ │Tracking │
-└─────────────┘    └────┬────┘ └────┬────┘ └────┬────┘
-                        │           │           │
-                        └───────────┼───────────┘
-                                    ▼
-                              ┌─────────────┐
-                              │Daily JSON   │
-                              │Files        │
-                              └─────────────┘
-```
-
-*Note: For interactive Mermaid diagrams, see [docs/diagrams.md](docs/diagrams.md)*
 
 ### Cost Monitoring Flow
 
-```
-User → main.py → TTS Provider → CostTracker → DataManager → JSON File
-  │       │           │              │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      start_request()     │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      Generate ID         │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      Estimate tokens     │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      Call API            │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      end_request()       │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      Calculate cost      │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      add_request()       │            │           │
-  │       │           │              │            │           │
-  │       │           ▼              │            │           │
-  │       │      Write to file       │            │           │
-  │       │           │              │            │           │
-  │       ▼           │              │            │           │
-  │  print_report()   │              │            │           │
-  │       │           │              │            │           │
-  ▼       │           │              │            │           │
-Display   │           │              │            │           │
-summary   │           │              │            │           │
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant M as main.py
+    participant T as TTS Provider
+    participant C as CostTracker
+    participant D as DataManager
+    participant J as JSON File
+    
+    U->>M: Run TTS generation
+    M->>T: Start TTS request
+    T->>C: start_request()
+    C->>C: Generate request ID
+    C->>C: Estimate tokens
+    
+    T->>T: Call API
+    T->>C: end_request()
+    C->>C: Calculate cost
+    C->>D: add_request()
+    D->>J: Write to daily file
+    
+    M->>C: print_daily_report()
+    C->>U: Display cost summary
 ```
 
-*Note: For interactive Mermaid diagrams, see [docs/diagrams.md](docs/diagrams.md)*
+### Data Flow Architecture
+
+```mermaid
+flowchart TD
+    A[Text Input] --> B[Number Conversion]
+    B --> C[Portuguese Text]
+    C --> D[TTS Request]
+    
+    D --> E[OpenAI API]
+    D --> F[Gemini API]
+    
+    E --> G[MPEG Audio]
+    F --> H[WAV Audio]
+    
+    G --> I[Audio Files]
+    H --> I
+    
+    D --> J[Cost Tracker]
+    J --> K[Token Counting]
+    J --> L[Cost Calculation]
+    J --> M[Request Logging]
+    
+    K --> N[Daily JSON]
+    L --> N
+    M --> N
+    
+    N --> O[Cost Reports]
+    O --> P[User Analytics]
+```
 
 ## 🚀 Installation
 
@@ -211,6 +217,51 @@ By Provider:
 - **Request Correlation**: Audio files linked to cost tracking requests
 - **Provider Identification**: Clear provider identification in filename
 
+### Request Processing Flow
+
+```mermaid
+flowchart LR
+    A[Start Request] --> B[Generate Request ID]
+    B --> C[Estimate Tokens]
+    C --> D[Call TTS API]
+    D --> E{API Success?}
+    
+    E -->|Yes| F[Calculate Cost]
+    E -->|No| G[Log Error]
+    
+    F --> H[Save Audio File]
+    G --> I[Update JSON]
+    H --> I
+    
+    I --> J[Update Metadata]
+    J --> K[End Request]
+    
+    K --> L[Display Report]
+```
+
+### Cost Calculation Process
+
+```mermaid
+flowchart TD
+    A[Request Data] --> B[Provider Lookup]
+    B --> C[Model Pricing]
+    C --> D[Input Tokens]
+    C --> E[Output Tokens]
+    C --> F[Base Cost]
+    
+    D --> G[Input Cost = Tokens × Rate]
+    E --> H[Output Cost = Tokens × Rate]
+    F --> I[Base Request Cost]
+    
+    G --> J[Total Cost]
+    H --> J
+    I --> J
+    
+    J --> K[Save to JSON]
+    K --> L[Update Daily Totals]
+    L --> M[Generate Report]
+```
+
 ### JSON Structure
 ```json
 {
@@ -248,31 +299,33 @@ By Provider:
 
 ## 📁 Project Structure
 
-```
-Portuguese_Numbers/
-├── main.py                           # Main orchestrator
-├── README.md                         # This file
-├── cost_monitor/                     # Cost monitoring system
-│   ├── __init__.py
-│   ├── cost_tracker.py              # Core cost tracking
-│   ├── pricing_config.py            # Provider pricing
-│   ├── data_manager.py              # JSON file management
-│   └── token_cost_2025-09-28.json   # Daily cost files
-├── src/                             # Source code
-│   ├── __init__.py
-│   ├── text_generation/             # Text generation module
-│   │   ├── __init__.py
-│   │   └── input_text_gen.py        # Number to text conversion
-│   ├── tts_providers/               # TTS provider implementations
-│   │   ├── __init__.py
-│   │   ├── txt_to_voice_openai.py   # OpenAI TTS
-│   │   └── txt_to_voice_gemini.py   # Gemini TTS
-│   └── utils/                       # Common utilities
-│       ├── __init__.py
-│       └── audio_utils.py           # Audio file handling
-└── audio_outputs/                   # Generated audio files
-    ├── output_250928_001_openai.wav
-    └── output_250928_001_gemini.wav
+```mermaid
+graph TD
+    A[Portuguese_Numbers/] --> B[main.py]
+    A --> C[README.md]
+    A --> D[cost_monitor/]
+    A --> E[src/]
+    A --> F[audio_outputs/]
+    A --> G[docs/]
+    
+    D --> D1[cost_tracker.py]
+    D --> D2[pricing_config.py]
+    D --> D3[data_manager.py]
+    D --> D4[token_cost_*.json]
+    
+    E --> E1[text_generation/]
+    E --> E2[tts_providers/]
+    E --> E3[utils/]
+    
+    E1 --> E1A[input_text_gen.py]
+    E2 --> E2A[txt_to_voice_openai.py]
+    E2 --> E2B[txt_to_voice_gemini.py]
+    E3 --> E3A[audio_utils.py]
+    
+    F --> F1[output_*_openai.wav]
+    F --> F2[output_*_gemini.wav]
+    
+    G --> G1[diagrams.md]
 ```
 
 ## 🔌 API Providers
@@ -435,7 +488,7 @@ echo $GEMINI_API_KEY
 ```
 
 **Audio File Issues**:
-- Check `audio_exercises/` directory permissions
+- Check `audio_outputs/` directory permissions
 - Ensure sufficient disk space
 - Verify API responses are valid
 
