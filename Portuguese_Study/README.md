@@ -1,4 +1,4 @@
-# Portuguese Numbers TTS System 🇧🇷🎵
+# Portuguese Study with Voice Aid System 🇧🇷🎵
 
 A comprehensive system for generating Portuguese text with numbers and converting them to speech using multiple TTS providers, with detailed cost monitoring and analytics.
 
