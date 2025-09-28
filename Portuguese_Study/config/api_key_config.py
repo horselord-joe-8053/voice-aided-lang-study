@@ -1,18 +1,11 @@
 """
 Simple API Key Configuration for Portuguese Study TTS System
 
-Just set your API keys as constants below, or use environment variables.
+Imports API keys from api_key_constants.py and provides helper functions.
 """
 
 import os
-
-# ===========================================
-# API KEY CONFIGURATION
-# ===========================================
-# Set your API keys here, or leave as None to use environment variables
-
-OPENAI_API_KEY = None  # Set your OpenAI API key here, or use OPENAI_API_KEY env var
-GEMINI_API_KEY = None  # Set your Gemini API key here, or use GEMINI_API_KEY env var
+from .api_key_constants import OPENAI_API_KEY, GEMINI_API_KEY
 
 # ===========================================
 # HELPER FUNCTIONS
