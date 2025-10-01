@@ -24,14 +24,48 @@ def number_to_pt_br(number):
     """
     return num2words(number, lang='pt_BR')
 
+def format_number_br(number):
+    """
+    Format a number using Brazilian digit conventions.
+    - Thousands separator: . (dot)
+    - Decimal separator: , (comma)
+    
+    Args:
+        number: The number to format (int or float)
+    
+    Returns:
+        str: The number formatted in Brazilian style
+    
+    Examples:
+        3416 -> "3.416"
+        50000 -> "50.000"
+        3.5 -> "3,5"
+        185.1 -> "185,1"
+    """
+    if isinstance(number, float):
+        # Format with one decimal place
+        formatted = f"{number:,.1f}"
+        # Replace: comma->X, dot->comma, X->dot (to swap separators)
+        formatted = formatted.replace(',', 'X').replace('.', ',').replace('X', '.')
+        return formatted
+    else:
+        # Format integer with thousand separators
+        formatted = f"{number:,}"
+        # Replace comma with dot for Brazilian format
+        return formatted.replace(',', '.')
+
 # -------------------------------
 # PARAGRAPH GENERATOR
 # -------------------------------
-def generate_paragraph():
+def generate_paragraph(use_digits=True):
     """
     Generate a random paragraph with years, large numbers, and percentages
     for listening practice. Creates a fictional history narrative spanning 
     from 1400 to 2025 with extensive use of years and various numbers.
+    
+    Args:
+        use_digits: If True, format numbers as digits (e.g., "1.417"). 
+                   If False, format as Portuguese words (e.g., "mil, quatrocentos e dezessete")
     
     Returns:
         str: A paragraph in Brazilian Portuguese with various numbers
@@ -64,31 +98,34 @@ def generate_paragraph():
     tech_companies = random.randint(1250, 4800)
     unemployment_rate = round(random.uniform(3.2, 8.7), 1)
     
+    # Choose formatting function based on use_digits
+    fmt = format_number_br if use_digits else number_to_pt_br
+    
     paragraph = (
-        f"A história do lendário Império de Valória começa em {number_to_pt_br(years[0])}, quando o rei fundador estabeleceu "
-        f"a primeira capital com apenas {number_to_pt_br(founding_pop)} habitantes e um exército de {number_to_pt_br(first_army)} soldados. "
-        f"Em {number_to_pt_br(years[1])}, exploradores valorenses descobriram terras a {number_to_pt_br(distance1)} quilômetros ao norte, "
-        f"onde encontraram um tesouro avaliado em {number_to_pt_br(treasure1)} moedas de ouro. "
-        f"O império expandiu significativamente em {number_to_pt_br(years[2])}, conquistando {number_to_pt_br(expansion_area)} quilômetros quadrados de território. "
-        f"Em {number_to_pt_br(years[3])}, foi assinado o Tratado de Paz com {number_to_pt_br(treaty_articles)} artigos. "
-        f"A frota naval, construída em {number_to_pt_br(years[4])}, possuía {number_to_pt_br(fleet_ships)} navios de guerra. "
-        f"A primeira universidade, fundada em {number_to_pt_br(years[5])}, recebia {number_to_pt_br(university_students)} estudantes anualmente. "
-        f"A Grande Guerra de {number_to_pt_br(years[6])} resultou em {number_to_pt_br(war_casualties)} baixas. "
-        f"Em {number_to_pt_br(years[7])}, formou-se uma aliança com {number_to_pt_br(alliance_nations)} nações vizinhas. "
-        f"Durante o século seguinte, entre {number_to_pt_br(years[8])} e {number_to_pt_br(years[9])}, a população cresceu {number_to_pt_br(population_growth)} por cento. "
-        f"Em {number_to_pt_br(years[10])}, estabeleceram-se {number_to_pt_br(trade_routes)} rotas comerciais marítimas. "
-        f"O palácio real, concluído em {number_to_pt_br(years[11])}, tinha {number_to_pt_br(palace_rooms)} aposentos luxuosos. "
-        f"A Grande Biblioteca, inaugurada em {number_to_pt_br(years[12])}, armazenava {number_to_pt_br(library_volumes)} volumes raros. "
-        f"Uma rebelião em {number_to_pt_br(years[13])} mobilizou {number_to_pt_br(rebellion_participants)} cidadãos descontentes. "
-        f"As reformas políticas de {number_to_pt_br(years[14])} mudaram {number_to_pt_br(reform_percentage)} por cento das leis antigas. "
-        f"A Revolução Industrial chegou em {number_to_pt_br(years[15])}, trazendo {number_to_pt_br(industrial_factories)} fábricas. "
-        f"Em {number_to_pt_br(years[16])}, construíram {number_to_pt_br(railroad_km)} quilômetros de ferrovias. "
-        f"Durante {number_to_pt_br(years[17])} e {number_to_pt_br(years[18])}, o império se modernizou rapidamente. "
-        f"Em {number_to_pt_br(years[19])}, a população atingiu {number_to_pt_br(modern_population)} habitantes. "
-        f"O PIB em {number_to_pt_br(years[20])} alcançou {number_to_pt_br(gdp_billions)} bilhões. "
-        f"Em {number_to_pt_br(years[21])}, surgiram {number_to_pt_br(tech_companies)} empresas de tecnologia. "
-        f"Entre {number_to_pt_br(years[22])} e {number_to_pt_br(years[23])}, houve grande prosperidade econômica. "
-        f"Finalmente, em {number_to_pt_br(years[24])}, o império moderno mantém uma taxa de desemprego de apenas {number_to_pt_br(unemployment_rate)} por cento."
+        f"A história do lendário Império de Valória começa em {fmt(years[0])}, quando o rei fundador estabeleceu "
+        f"a primeira capital com apenas {fmt(founding_pop)} habitantes e um exército de {fmt(first_army)} soldados. "
+        f"Em {fmt(years[1])}, exploradores valorenses descobriram terras a {fmt(distance1)} quilômetros ao norte, "
+        f"onde encontraram um tesouro avaliado em {fmt(treasure1)} moedas de ouro. "
+        f"O império expandiu significativamente em {fmt(years[2])}, conquistando {fmt(expansion_area)} quilômetros quadrados de território. "
+        f"Em {fmt(years[3])}, foi assinado o Tratado de Paz com {fmt(treaty_articles)} artigos. "
+        f"A frota naval, construída em {fmt(years[4])}, possuía {fmt(fleet_ships)} navios de guerra. "
+        f"A primeira universidade, fundada em {fmt(years[5])}, recebia {fmt(university_students)} estudantes anualmente. "
+        f"A Grande Guerra de {fmt(years[6])} resultou em {fmt(war_casualties)} baixas. "
+        f"Em {fmt(years[7])}, formou-se uma aliança com {fmt(alliance_nations)} nações vizinhas. "
+        f"Durante o século seguinte, entre {fmt(years[8])} e {fmt(years[9])}, a população cresceu {fmt(population_growth)} por cento. "
+        f"Em {fmt(years[10])}, estabeleceram-se {fmt(trade_routes)} rotas comerciais marítimas. "
+        f"O palácio real, concluído em {fmt(years[11])}, tinha {fmt(palace_rooms)} aposentos luxuosos. "
+        f"A Grande Biblioteca, inaugurada em {fmt(years[12])}, armazenava {fmt(library_volumes)} volumes raros. "
+        f"Uma rebelião em {fmt(years[13])} mobilizou {fmt(rebellion_participants)} cidadãos descontentes. "
+        f"As reformas políticas de {fmt(years[14])} mudaram {fmt(reform_percentage)} por cento das leis antigas. "
+        f"A Revolução Industrial chegou em {fmt(years[15])}, trazendo {fmt(industrial_factories)} fábricas. "
+        f"Em {fmt(years[16])}, construíram {fmt(railroad_km)} quilômetros de ferrovias. "
+        f"Durante {fmt(years[17])} e {fmt(years[18])}, o império se modernizou rapidamente. "
+        f"Em {fmt(years[19])}, a população atingiu {fmt(modern_population)} habitantes. "
+        f"O PIB em {fmt(years[20])} alcançou {fmt(gdp_billions)} bilhões. "
+        f"Em {fmt(years[21])}, surgiram {fmt(tech_companies)} empresas de tecnologia. "
+        f"Entre {fmt(years[22])} e {fmt(years[23])}, houve grande prosperidade econômica. "
+        f"Finalmente, em {fmt(years[24])}, o império moderno mantém uma taxa de desemprego de apenas {fmt(unemployment_rate)} por cento."
     )
     return paragraph
 
@@ -138,14 +175,17 @@ def generate_paragraph2():
 # -------------------------------
 # UTILITY FUNCTIONS
 # -------------------------------
-def generate_and_display_paragraph():
+def generate_and_display_paragraph(use_digits=True):
     """
     Generate a paragraph and display it.
+    
+    Args:
+        use_digits: If True, format numbers as digits. If False, format as Portuguese words
     
     Returns:
         str: Generated paragraph text
     """
-    paragraph = generate_paragraph()
+    paragraph = generate_paragraph(use_digits=use_digits)
     print("Generated paragraph:")
     print(paragraph)
     print()  # Add spacing

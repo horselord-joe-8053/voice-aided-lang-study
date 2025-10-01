@@ -52,24 +52,28 @@ def main():
     output_folder = create_run_folder()
     print()
     
-    # Generate and display paragraph
-    paragraph = generate_and_display_paragraph()
+    # Generate paragraph with DIGITS for text file and display
+    paragraph_digits = generate_and_display_paragraph(use_digits=True)
     print()
     
-    # Save text to file
+    # Save digit version to text file
     print("Saving text...")
-    text_file = save_text(output_folder, paragraph)
+    text_file = save_text(output_folder, paragraph_digits)
     print()
     
-    # Create TTS audio for configured providers
+    # Generate paragraph with WORDS for TTS (better pronunciation)
+    from src.text_generation.input_text_gen import generate_paragraph
+    paragraph_words = generate_paragraph(use_digits=False)
+    
+    # Create TTS audio for configured providers (using word version)
     if 'openai' in configured_providers:
         print("Creating OpenAI TTS audio...")
-        tts_openai(paragraph, output_folder=output_folder)
+        tts_openai(paragraph_words, output_folder=output_folder)
         print()
     
     if 'gemini' in configured_providers:
         print("Creating Gemini TTS audio...")
-        tts_gemini(paragraph, output_folder=output_folder)
+        tts_gemini(paragraph_words, output_folder=output_folder)
         print()
     
     # Post-processing: Convert WAV to MP3
