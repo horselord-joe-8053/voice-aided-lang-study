@@ -64,9 +64,11 @@ def generate_paragraph(use_digits=True):
     Args:
         use_digits: If True, format numbers as digits (e.g., "1.417"). 
                    If False, format as Portuguese words (e.g., "mil, quatrocentos e dezessete")
+                   If 'both', returns tuple (digit_version, word_version) with same data
     
     Returns:
-        str: Years formatted in sorted order, then in random order
+        str or tuple: Years formatted in sorted order, then in random order.
+                     If use_digits='both', returns (digit_str, word_str)
     """
     # Generate 20 different years between 1400 to 1800
     years_1400_1800 = random.sample(range(1400, 1801), 20)
@@ -83,19 +85,31 @@ def generate_paragraph(use_digits=True):
     # Combine all years
     all_years = years_1400_1800 + years_1800_1900 + years_1900_2000 + years_2000_2029
     
-    # Choose formatting function based on use_digits
-    fmt = format_number_br if use_digits else number_to_pt_br
-    
     # Create sorted version (earliest to latest)
     sorted_years = sorted(all_years)
-    sorted_years_str = ", ".join([fmt(year) for year in sorted_years])
     
-    # Create random version
+    # Create random version (shuffled copy)
     random_years = all_years.copy()
     random.shuffle(random_years)
-    random_years_str = ", ".join([fmt(year) for year in random_years])
     
-    # Build the output
+    # If both formats requested, generate both with the same data
+    if use_digits == 'both':
+        # Format as digits
+        sorted_years_digits = ", ".join([format_number_br(year) for year in sorted_years])
+        random_years_digits = ", ".join([format_number_br(year) for year in random_years])
+        paragraph_digits = f"{sorted_years_digits}\nrandom order\n{random_years_digits}"
+        
+        # Format as words
+        sorted_years_words = ", ".join([number_to_pt_br(year) for year in sorted_years])
+        random_years_words = ", ".join([number_to_pt_br(year) for year in random_years])
+        paragraph_words = f"{sorted_years_words}\nrandom order\n{random_years_words}"
+        
+        return (paragraph_digits, paragraph_words)
+    
+    # Single format requested
+    fmt = format_number_br if use_digits else number_to_pt_br
+    sorted_years_str = ", ".join([fmt(year) for year in sorted_years])
+    random_years_str = ", ".join([fmt(year) for year in random_years])
     paragraph = f"{sorted_years_str}\nrandom order\n{random_years_str}"
     
     return paragraph

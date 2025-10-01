@@ -52,8 +52,13 @@ def main():
     output_folder = create_run_folder()
     print()
     
-    # Generate paragraph with DIGITS for text file and display
-    paragraph_digits = generate_and_display_paragraph(use_digits=True)
+    # Generate paragraph ONCE with BOTH formats (same data, different formatting)
+    from src.text_generation.input_text_gen import generate_paragraph
+    paragraph_digits, paragraph_words = generate_paragraph(use_digits='both')
+    
+    # Display digit version
+    print("Generated paragraph:")
+    print(paragraph_digits)
     print()
     
     # Save digit version to text file
@@ -61,11 +66,7 @@ def main():
     text_file = save_text(output_folder, paragraph_digits)
     print()
     
-    # Generate paragraph with WORDS for TTS (better pronunciation)
-    from src.text_generation.input_text_gen import generate_paragraph
-    paragraph_words = generate_paragraph(use_digits=False)
-    
-    # Create TTS audio for configured providers (using word version)
+    # Create TTS audio for configured providers (using word version with SAME data)
     if 'openai' in configured_providers:
         print("Creating OpenAI TTS audio...")
         tts_openai(paragraph_words, output_folder=output_folder)
