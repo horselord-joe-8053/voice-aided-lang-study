@@ -72,7 +72,7 @@ cost_tracker = CostTracker()
 # -------------------------------
 # GEMINI TTS
 # -------------------------------
-def tts_gemini(text, filename=None):
+def tts_gemini(text, filename=None, output_folder=None):
     """
     Convert text to speech using Gemini 2.5 Flash Preview TTS API
     Saves to WAV file with cost tracking and automatic filename generation.
@@ -80,6 +80,7 @@ def tts_gemini(text, filename=None):
     Args:
         text: Text to convert to speech
         filename: Output filename for the audio (optional, will be auto-generated if not provided)
+        output_folder: Custom output folder (optional, uses default if not provided)
     
     Returns:
         str: Path to saved audio file, or None if failed
@@ -94,7 +95,11 @@ def tts_gemini(text, filename=None):
     
     # Generate filename if not provided
     if filename is None:
-        filename = generate_audio_filename(request_id, "gemini")
+        # If output_folder is provided, use simple filename, otherwise use auto-generated
+        if output_folder:
+            filename = "gemini.wav"
+        else:
+            filename = generate_audio_filename(request_id, "gemini")
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key={GEMINI_API_KEY}"
     headers = {
@@ -132,7 +137,7 @@ def tts_gemini(text, filename=None):
                                 # Add WAV headers to the raw audio data
                                 audio_data = add_wav_headers(raw_audio_data, sample_rate=24000)
                                 
-                                audio_path = save_audio_file(audio_data, filename)
+                                audio_path = save_audio_file(audio_data, filename, output_folder)
                                 
                                 # Estimate audio duration (rough calculation: 1 second ≈ 16KB for typical TTS)
                                 audio_duration = len(audio_data) / 16000 if len(audio_data) > 0 else 0

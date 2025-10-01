@@ -44,18 +44,25 @@ def generate_audio_filename(request_id: str, provider: str) -> str:
 # -------------------------------
 # AUDIO SAVING UTILITY
 # -------------------------------
-def save_audio_file(audio_data, filename):
+def save_audio_file(audio_data, filename, output_folder=None):
     """
     Save audio data to file in the output folder.
     
     Args:
         audio_data: Raw audio data (bytes)
         filename: Name of the output file
+        output_folder: Custom output folder (if None, uses default OUTPUT_FOLDER)
     
     Returns:
         str: Path to the saved audio file
     """
-    audio_path = os.path.join(OUTPUT_FOLDER, filename)
+    if output_folder is None:
+        output_folder = OUTPUT_FOLDER
+    
+    # Ensure output folder exists
+    os.makedirs(output_folder, exist_ok=True)
+    
+    audio_path = os.path.join(output_folder, filename)
     with open(audio_path, "wb") as f:
         f.write(audio_data)
     return audio_path

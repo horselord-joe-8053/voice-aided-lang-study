@@ -1,0 +1,14 @@
+# Core dependencies for text generation and TTS
+num2words>=0.5.12           # Number to words conversion for Portuguese
+openai>=1.0.0               # OpenAI TTS API
+requests>=2.31.0            # HTTP library for Gemini API calls
+
+# Post-processing dependencies
+pydub>=0.25.1               # Audio format conversion (WAV to MP3)
+Pillow>=10.0.0              # Image generation from text for video backgrounds
+
+# Note: This project also requires ffmpeg to be installed on your system
+# macOS: brew install ffmpeg
+# Ubuntu/Debian: sudo apt-get install ffmpeg
+# Windows: choco install ffmpeg
+

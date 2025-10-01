@@ -27,7 +27,7 @@ cost_tracker = CostTracker()
 # -------------------------------
 # OPENAI TTS
 # -------------------------------
-def tts_openai(text, filename=None):
+def tts_openai(text, filename=None, output_folder=None):
     """
     Convert text to speech using OpenAI TTS (gpt-4o-mini-tts or similar)
     Saves to WAV file with cost tracking and automatic filename generation.
@@ -35,6 +35,7 @@ def tts_openai(text, filename=None):
     Args:
         text: Text to convert to speech
         filename: Output filename for the audio (optional, will be auto-generated if not provided)
+        output_folder: Custom output folder (optional, uses default if not provided)
     
     Returns:
         str: Path to saved audio file, or None if failed
@@ -49,7 +50,11 @@ def tts_openai(text, filename=None):
     
     # Generate filename if not provided
     if filename is None:
-        filename = generate_audio_filename(request_id, "openai")
+        # If output_folder is provided, use simple filename, otherwise use auto-generated
+        if output_folder:
+            filename = "openai.wav"
+        else:
+            filename = generate_audio_filename(request_id, "openai")
     
     openai.api_key = OPENAI_API_KEY
 
@@ -61,7 +66,7 @@ def tts_openai(text, filename=None):
         )
 
         audio_data = response.read()
-        audio_path = save_audio_file(audio_data, filename)
+        audio_path = save_audio_file(audio_data, filename, output_folder)
         
         # Estimate audio duration (rough calculation: 1 second ≈ 16KB for typical TTS)
         audio_duration = len(audio_data) / 16000 if len(audio_data) > 0 else 0
