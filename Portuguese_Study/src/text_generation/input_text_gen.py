@@ -59,6 +59,49 @@ def format_number_br(number):
 # -------------------------------
 def generate_paragraph(use_digits=True):
     """
+    Generate years from different time periods and output them in sorted and random order.
+    
+    Args:
+        use_digits: If True, format numbers as digits (e.g., "1.417"). 
+                   If False, format as Portuguese words (e.g., "mil, quatrocentos e dezessete")
+    
+    Returns:
+        str: Years formatted in sorted order, then in random order
+    """
+    # Generate 20 different years between 1400 to 1800
+    years_1400_1800 = random.sample(range(1400, 1801), 20)
+    
+    # Generate 20 different years between 1800 to 1900
+    years_1800_1900 = random.sample(range(1800, 1901), 20)
+    
+    # Generate 30 different years between 1900 to 2000
+    years_1900_2000 = random.sample(range(1900, 2001), 30)
+    
+    # Generate 30 different years between 2000 to 2029
+    years_2000_2029 = random.sample(range(2000, 2030), 30)
+    
+    # Combine all years
+    all_years = years_1400_1800 + years_1800_1900 + years_1900_2000 + years_2000_2029
+    
+    # Choose formatting function based on use_digits
+    fmt = format_number_br if use_digits else number_to_pt_br
+    
+    # Create sorted version (earliest to latest)
+    sorted_years = sorted(all_years)
+    sorted_years_str = ", ".join([fmt(year) for year in sorted_years])
+    
+    # Create random version
+    random_years = all_years.copy()
+    random.shuffle(random_years)
+    random_years_str = ", ".join([fmt(year) for year in random_years])
+    
+    # Build the output
+    paragraph = f"{sorted_years_str}\nrandom order\n{random_years_str}"
+    
+    return paragraph
+
+def generate_paragraph_num2(use_digits=True):
+    """
     Generate a random paragraph with years, large numbers, and percentages
     for listening practice. Creates a fictional history narrative spanning 
     from 1400 to 2025 with extensive use of years and various numbers.
