@@ -30,6 +30,71 @@ def number_to_pt_br(number):
 def generate_paragraph():
     """
     Generate a random paragraph with years, large numbers, and percentages
+    for listening practice. Creates a fictional history narrative spanning 
+    from 1400 to 2025 with extensive use of years and various numbers.
+    
+    Returns:
+        str: A paragraph in Brazilian Portuguese with various numbers
+    """
+    # Generate 20+ unique years between 1400 and 2025
+    years = random.sample(range(1400, 2026), 25)
+    years.sort()
+    
+    # Generate various numbers for the narrative
+    founding_pop = random.randint(3000, 8000)
+    first_army = random.randint(500, 1500)
+    distance1 = random.randint(150, 450)
+    treasure1 = random.randint(50000, 150000)
+    expansion_area = random.randint(12000, 35000)
+    treaty_articles = random.randint(15, 45)
+    fleet_ships = random.randint(75, 200)
+    university_students = random.randint(800, 2500)
+    war_casualties = random.randint(15000, 75000)
+    alliance_nations = random.randint(7, 18)
+    population_growth = round(random.uniform(150, 380), 1)
+    trade_routes = random.randint(28, 67)
+    palace_rooms = random.randint(350, 850)
+    library_volumes = random.randint(45000, 125000)
+    rebellion_participants = random.randint(8000, 25000)
+    reform_percentage = round(random.uniform(35, 85), 1)
+    industrial_factories = random.randint(125, 450)
+    railroad_km = random.randint(2500, 7800)
+    modern_population = random.randint(1500000, 8500000)
+    gdp_billions = round(random.uniform(125, 550), 1)
+    tech_companies = random.randint(1250, 4800)
+    unemployment_rate = round(random.uniform(3.2, 8.7), 1)
+    
+    paragraph = (
+        f"A história do lendário Império de Valória começa em {number_to_pt_br(years[0])}, quando o rei fundador estabeleceu "
+        f"a primeira capital com apenas {number_to_pt_br(founding_pop)} habitantes e um exército de {number_to_pt_br(first_army)} soldados. "
+        f"Em {number_to_pt_br(years[1])}, exploradores valorenses descobriram terras a {number_to_pt_br(distance1)} quilômetros ao norte, "
+        f"onde encontraram um tesouro avaliado em {number_to_pt_br(treasure1)} moedas de ouro. "
+        f"O império expandiu significativamente em {number_to_pt_br(years[2])}, conquistando {number_to_pt_br(expansion_area)} quilômetros quadrados de território. "
+        f"Em {number_to_pt_br(years[3])}, foi assinado o Tratado de Paz com {number_to_pt_br(treaty_articles)} artigos. "
+        f"A frota naval, construída em {number_to_pt_br(years[4])}, possuía {number_to_pt_br(fleet_ships)} navios de guerra. "
+        f"A primeira universidade, fundada em {number_to_pt_br(years[5])}, recebia {number_to_pt_br(university_students)} estudantes anualmente. "
+        f"A Grande Guerra de {number_to_pt_br(years[6])} resultou em {number_to_pt_br(war_casualties)} baixas. "
+        f"Em {number_to_pt_br(years[7])}, formou-se uma aliança com {number_to_pt_br(alliance_nations)} nações vizinhas. "
+        f"Durante o século seguinte, entre {number_to_pt_br(years[8])} e {number_to_pt_br(years[9])}, a população cresceu {number_to_pt_br(population_growth)} por cento. "
+        f"Em {number_to_pt_br(years[10])}, estabeleceram-se {number_to_pt_br(trade_routes)} rotas comerciais marítimas. "
+        f"O palácio real, concluído em {number_to_pt_br(years[11])}, tinha {number_to_pt_br(palace_rooms)} aposentos luxuosos. "
+        f"A Grande Biblioteca, inaugurada em {number_to_pt_br(years[12])}, armazenava {number_to_pt_br(library_volumes)} volumes raros. "
+        f"Uma rebelião em {number_to_pt_br(years[13])} mobilizou {number_to_pt_br(rebellion_participants)} cidadãos descontentes. "
+        f"As reformas políticas de {number_to_pt_br(years[14])} mudaram {number_to_pt_br(reform_percentage)} por cento das leis antigas. "
+        f"A Revolução Industrial chegou em {number_to_pt_br(years[15])}, trazendo {number_to_pt_br(industrial_factories)} fábricas. "
+        f"Em {number_to_pt_br(years[16])}, construíram {number_to_pt_br(railroad_km)} quilômetros de ferrovias. "
+        f"Durante {number_to_pt_br(years[17])} e {number_to_pt_br(years[18])}, o império se modernizou rapidamente. "
+        f"Em {number_to_pt_br(years[19])}, a população atingiu {number_to_pt_br(modern_population)} habitantes. "
+        f"O PIB em {number_to_pt_br(years[20])} alcançou {number_to_pt_br(gdp_billions)} bilhões. "
+        f"Em {number_to_pt_br(years[21])}, surgiram {number_to_pt_br(tech_companies)} empresas de tecnologia. "
+        f"Entre {number_to_pt_br(years[22])} e {number_to_pt_br(years[23])}, houve grande prosperidade econômica. "
+        f"Finalmente, em {number_to_pt_br(years[24])}, o império moderno mantém uma taxa de desemprego de apenas {number_to_pt_br(unemployment_rate)} por cento."
+    )
+    return paragraph
+
+def generate_paragraph_num1():
+    """
+    Generate a random paragraph with years, large numbers, and percentages
     for listening practice.
     
     Returns:
@@ -49,7 +114,7 @@ def generate_paragraph():
         f"representando um crescimento de {number_to_pt_br(growth)} por cento. "
         f"O PIB passou de {number_to_pt_br(gdp1)} para {number_to_pt_br(gdp2)} reais."
     )
-    return paragraph
+    return paragraph    
 
 def generate_paragraph2():
     text = """
